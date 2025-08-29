@@ -1,0 +1,30 @@
+<!-- 202233207 김도연
+tableManage.ejs -->
+<table
+  class="table table-bordered border-primary table-hover"
+  style="text-align: center"
+>
+  <thead class="table-primary">
+    <tr>
+      <th>테이블 명</th>
+      <th>테이블 설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if (tables && tables.length > 0) { %> <% tables.forEach(function(table) {
+    %>
+    <tr>
+      <td>
+        <a href="/table/view/<%= table.TABLE_NAME %>">
+          <%= table.TABLE_NAME %>
+        </a>
+      </td>
+      <td><%= table.TABLE_COMMENT %></td>
+    </tr>
+    <% }); %> <% } else { %>
+    <tr>
+      <td colspan="2">테이블이 비어있습니다.</td>
+    </tr>
+    <% } %>
+  </tbody>
+</table>

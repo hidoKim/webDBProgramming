@@ -1,0 +1,46 @@
+<!-- 202233207 김도연
+cartView.ejs -->
+<table
+  class="table table-bordered border-primary table-hover"
+  style="text-align: center"
+>
+  <thead class="table-primary">
+    <tr>
+      <th>loginid</th>
+      <th>고객명</th>
+      <th>상품id</th>
+      <th>상품명</th>
+      <th>일자</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if (carts && carts.length > 0) { %> <% carts.forEach(function(cart) { %>
+    <tr>
+      <td><%= cart.loginid %></td>
+      <td><%= cart.customer_name %></td>
+      <td><%= cart.prod_id %></td>
+      <td><%= cart.prod_name %></td>
+      <td><%= cart.date %></td>
+      <td>
+        <a href="/cartupdate/<%= cart.cart_id %>" style="text-decoration: none"
+          >수정</a
+        >
+      </td>
+      <td>
+        <a
+          href="/cartdelete/<%= cart.cart_id %>"
+          style="text-decoration: none"
+          onclick="return confirm('정말로 삭제하시겠습니까?')"
+          >삭제</a
+        >
+      </td>
+    </tr>
+    <% }); %> <% } else { %>
+    <!-- 자료가 없을 때도 빈 행 + 수정/삭제 버튼 출력 -->
+    <tr>
+      <td colspan="6">목록이 비어있습니다.</td>
+    </tr>
+    <% } %>
+  </tbody>
+</table>

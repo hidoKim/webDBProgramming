@@ -1,0 +1,72 @@
+<!-- 202233207 김도연 -->
+<!-- product.ejs -->
+<table
+  class="table table-bordered border-primary table-hover"
+  style="text-align: center"
+>
+  <thead class="table-primary">
+    <tr>
+      <th>상품</th>
+      <th>상품명</th>
+      <th>가격</th>
+      <th>브랜드</th>
+      <% if (!hideActions) { %>
+      <th colspan="2">메뉴</th>
+      <% } %>
+    </tr>
+  </thead>
+  <tbody>
+    <% if (products && products.length > 0) { %> <%
+    products.forEach(function(product) { %>
+    <tr>
+      <td>
+        <% if (product.image) { %>
+        <a href="/detail/<%= product.prod_id %>">
+          <img
+            src="/images/<%= product.image %>"
+            alt="상품이미지"
+            style="width: 60px; height: auto"
+          />
+        </a>
+        <% } else { %>
+        <span style="color: gray">이미지 없음</span>
+        <% } %>
+      </td>
+      <td><%= product.name %></td>
+      <td><%= product.price %></td>
+      <td><%= product.brand %></td>
+      <% if (!hideActions) { %>
+      <td>
+        <a
+          href="/product/update/<%= product.prod_id %>"
+          style="text-decoration: none"
+          >수정</a
+        >
+      </td>
+      <td>
+        <a
+          href="/product/delete/<%= product.prod_id %>"
+          style="text-decoration: none"
+          onclick="return confirm('정말로 삭제하시겠습니까?')"
+          >삭제</a
+        >
+      </td>
+      <% } %>
+    </tr>
+    <% }); %> <% } else { %>
+    <tr>
+      <td colspan="<%= hideActions ? 4 : 6 %>"></td>
+    </tr>
+    <% } %>
+  </tbody>
+</table>
+
+<% if (!products || products.length === 0) { %>
+<p>상품이 없으니 상품 추가 버튼으로 코드를 추가해 주십시오.</p>
+<% } %> <% if (!hideActions) { %>
+<a href="/product/create">
+  <button class="btn btn-outline-secondary btn-sm" type="button">
+    상품 추가
+  </button>
+</a>
+<% } %>

@@ -1,0 +1,109 @@
+<!-- 202233207 김도연 -->
+<!-- personCU.ejs -->
+<div class="container">
+  <h2>
+    관리자 기능: <%= mode === "update" ? "회원정보수정" : "회원생성" %>
+  </h2>
+  <form action="<%= mode === 'update' ? '/person/update_process' : '/person/create_process' %>" method="post" autocomplete="off">
+    <% if (mode !== "update") { %>
+    <div class="mb-3">
+      <label class="form-label">ID</label>
+      <input
+        class="form-control"
+        type="text"
+        name="loginid"
+        placeholder="아이디를 입력해 주세요"
+        value="<%= person && person.loginid ? person.loginid : '' %>"
+        <%= mode === "update" ? "readonly" : "" %>
+        style="width: 300px"        
+        required
+      />
+    </div>
+     <% } %>
+     <% if (mode === "update") { %>
+  <input type="hidden" name="loginid" value="<%= person.loginid %>" />
+<% } %>
+    <div class="mb-3">
+      <label class="form-label">PW</label>
+      <input
+        class="form-control"
+        type="text"
+        name="password"
+        placeholder="패스워드를 입력해 주세요"
+        value="<%= person && person.password ? person.password : '' %>"
+        style="width: 300px"
+        required
+      />
+    </div>
+   
+    <div class="mb-3">
+      <label class="form-label">이름</label>
+      <input
+        class="form-control"
+        type="text"
+        name="name"
+        placeholder="이름을 입력해 주세요"
+        value="<%= person && person.name ? person.name : '' %>"
+        style="width: 300px"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label class="form-label">성별</label>
+      <input type="radio" id="male" name="mf" value="m" style="margin-left: 20px" <%= !person || person.mf === "m" ? "checked" : "" %> />
+      <label for="male" style="margin-right: 20px;">남자</label>
+      <input type="radio" id="female" name="mf" value="f" <%= person && person.mf === "f" ? "checked" : "" %> />
+      <label for="female">여자</label>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">주소</label>
+      <input
+        class="form-control"
+        type="text"
+        name="address"
+        placeholder="주소를 입력해 주세요"
+        style="width: 300px"
+        value="<%= person && person.address ? person.address : '' %>"
+      />
+    </div>
+    <div class="mb-3">
+      <label class="form-label">전화번호</label>
+      <input
+        class="form-control"
+        type="text"
+        name="tel"
+        placeholder="000-0000-0000"
+        style="width: 300px"
+        value="<%= person && person.tel ? person.tel : '' %>"
+      />
+    </div>
+    <div class="mb-3">
+      <label class="form-label">생일</label>
+      <input
+        class="form-control"
+        type="text"
+        name="birth"
+        placeholder="YYYYMMDD"
+        style="width: 300px"
+        value="<%= person && person.birth ? person.birth : '' %>"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label class="form-label">CLASS</label>
+      <select class="form-select" name="class" style="width: 300px" required>
+        <option value="CEO" <%= person && person.class === "CEO" ? "selected" : "" %>>경영자</option>
+        <option value="MNG" <%= person && person.class === "MNG" ? "selected" : "" %>>관리자</option>
+        <option value="CST" <%= !person || person.class === "CST" ? "selected" : "" %>>고객</option>
+      </select>
+    </div>
+    <button class="btn btn-outline-primary btn-sm" type="submit">
+      <%= mode === "update" ? "수정" : "입력" %>
+    </button>
+    <a href="/person/view">
+      <button class="btn btn-outline-primary btn-sm" type="button">
+        고객 목록 돌아가기
+      </button>
+    </a>
+  </form>
+</div>

@@ -1,0 +1,57 @@
+<!-- 202233207 김도연
+productDetail.ejs -->
+<% if (pDetail && pDetail.length > 0) { const prod = pDetail[0]; %>
+<table class="table table-bordered">
+  <tr>
+    <td rowspan="6">
+      <% if (prod.image) { %>
+      <img
+        src="/images/<%= prod.image %>"
+        style="width: 300px; height: 300px"
+      />
+      <% } else { %>
+      <span style="color: gray">이미지 없음</span>
+      <% } %>
+    </td>
+    <td><%= prod.name %></td>
+  </tr>
+  <tr>
+    <td>
+      가격 : <%= prod.price ? prod.price.toLocaleString('ko-KR') : '' %> 원
+    </td>
+  </tr>
+  <tr>
+    <td>브랜드 : <%= prod.brand %></td>
+  </tr>
+  <tr>
+    <td>공급업체 : <%= prod.supplier %></td>
+  </tr>
+  <% if (cls == "CST") { %>
+  <tr>
+    <td>
+      <a href="/purchase/detail/<%= prod.prod_id %>">
+        <button class="btn btn-outline-primary btn-sm" type="button">
+          구매
+        </button>
+      </a>
+      <form
+        action="/purchase/cart_process"
+        method="post"
+        style="display: inline"
+      >
+        <input type="hidden" value="<%= prod.prod_id %>" name="prod_id" />
+        <button class="btn btn-outline-primary btn-sm" type="submit">
+          장바구니
+        </button>
+      </form>
+    </td>
+  </tr>
+  <%}%>
+</table>
+<% } else { %>
+<table class="table table-bordered">
+  <tr>
+    <td colspan="2">상품 정보를 찾을 수 없습니다.</td>
+  </tr>
+</table>
+<% } %>

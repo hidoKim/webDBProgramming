@@ -1,0 +1,87 @@
+<!-- 202233207 김도연 -->
+<!-- register.ejs -->
+<div class="container">
+  <h2>회원가입</h2>
+  <form action="/auth/register_process" method="post" autocomplete="off">
+    <div class="mb-3">
+      <label class="form-label">ID</label>
+      <input
+        class="form-control"
+        type="text"
+        name="loginid"
+        placeholder="아이디를 입력해 주세요"
+        style="width: 300px"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label class="form-label">PW</label>
+      <input
+        class="form-control"
+        type="password"
+        name="password"
+        placeholder="패스워드를 입력해 주세요"
+        style="width: 300px"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label class="form-label">이름</label>
+      <input
+        class="form-control"
+        type="text"
+        name="name"
+        placeholder="이름을 입력해 주세요"
+        style="width: 300px"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label class="form-label">성별</label>
+
+      <input
+        type="radio"
+        id="male"
+        name="mf"
+        value="m"
+        style="margin-left: 20px"
+        checked
+      />
+      <label for="male" style="margin-right: 20px">남자</label>
+      <input type="radio" id="female" name="mf" value="f" />
+      <label for="female">여자</label>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">주소</label>
+      <input
+        class="form-control"
+        type="text"
+        name="address"
+        placeholder="주소를 입력해 주세요"
+        style="width: 300px"
+      />
+    </div>
+    <div class="mb-3">
+      <label class="form-label">전화번호</label>
+      <input
+        class="form-control"
+        type="text"
+        name="tel"
+        placeholder="000-0000-0000"
+        style="width: 300px"
+      />
+    </div>
+    <div class="mb-3">
+      <label class="form-label">생일</label>
+      <input
+        class="form-control"
+        type="text"
+        name="birth"
+        placeholder="YYYYMMDD"
+        style="width: 300px"
+        required
+      />
+    </div>
+    <button class="btn btn-outline-primary btn-sm" type="submit">입력</button>
+  </form>
+</div>

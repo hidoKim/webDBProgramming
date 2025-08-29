@@ -1,0 +1,45 @@
+<!-- 202233207 김도연 -->
+<!-- board.ejs -->
+<% var thisBoardtype = boardtypes.find(function(bt) { return bt.type_id ==
+typeId; }); %>
+
+<table class="table table-bordered border-primary">
+  <h2><%= boardtypes[typeId - 1] ? boardtypes[typeId - 1].title : '' %></h2>
+  <tr>
+    <td>작성자</td>
+    <td>제목</td>
+    <td>날짜</td>
+  </tr>
+  <% if (boards && boards.length > 0) { %> <% boards.forEach(function(board) {
+  %>
+  <tr>
+    <td><%= board.loginid %></td>
+    <td>
+      <% if (board.p_id) { %>
+      <span style="color: blue"></span>
+      <% } %>
+      <a href="/board/detail/<%= board.board_id %>/<%= pNum %>">
+        <%= board.title %>
+      </a>
+    </td>
+    <td><%= board.date %></td>
+  </tr>
+  <% }); %> <% } %>
+</table>
+<% if ( (cls === 'MNG') || (cls === 'CST' && thisBoardtype &&
+thisBoardtype.write_YN === 'Y') ) { %> <% if (!boards || boards.length === 0) {
+%>
+<p>글쓰기 버튼으로 글을 작성하세요.</p>
+<% } %>
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+  <a href="/board/create/<%= typeId %>">
+    <button type="button" class="btn btn-info me-md-2">글쓰기</button>
+  </a>
+</div>
+<% } %> <% for(var j = 1; j <= totalPages; j++) { %> <% if(j == pNum) { %>
+<span style="font-weight: bold"><%= j %></span>
+<% } else { %>
+<span>
+  <a href="/board/view/<%= typeId %>/<%= j %>"><%= j %></a>
+</span>
+<% } %> &nbsp; <% } %>

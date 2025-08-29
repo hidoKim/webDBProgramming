@@ -1,0 +1,112 @@
+<!-- 202233207 김도연 -->
+<!-- productCU.ejs -->
+<div class="container">
+  <h2><%= product && product.prod_id ? '상품 수정' : '상품 입력' %></h2>
+  <form
+    action="<%= product && product.prod_id ? '/product/update_process' : '/product/create_process' %>"
+    method="post"
+    enctype="multipart/form-data"
+  >
+    <% if (product && product.prod_id) { %>
+    <input type="hidden" name="prod_id" value="<%= product.prod_id %>" />
+    <% } %>
+
+    <select class="form-select" name="category" style="width: 300px">
+      <% if (categories && categories.length > 0) { %> <%
+      categories.forEach(function(cat, idx) { var catValue = cat.main_id + ':' +
+      cat.sub_id; var isSelected = ''; if (product && product.main_id) {
+      isSelected = ((product.main_id + ':' + product.sub_id) === catValue) ?
+      'selected' : ''; } else if (idx === 0) { isSelected = 'selected'; } %>
+      <option value="<%= catValue %>" <%="isSelected" %>
+        > <%= cat.main_name %> : <%= cat.sub_name %>
+      </option>
+      <% }); %> <% } else { %>
+      <option value="">카테고리가 없습니다</option>
+      <% } %>
+    </select>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label class="form-label">제품명</label>
+          <input
+            class="form-control"
+            type="text"
+            name="name"
+            value="<%= product && product.name ? product.name : '' %>"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">재고</label>
+          <input
+            class="form-control"
+            type="text"
+            name="stock"
+            value="<%= product && product.stock ? product.stock : '' %>"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">공급자</label>
+          <input
+            class="form-control"
+            type="text"
+            name="supplier"
+            value="<%= product && product.supplier ? product.supplier : '' %>"
+          />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label class="form-label">가격</label>
+          <input
+            class="form-control"
+            type="text"
+            name="price"
+            value="<%= product && product.price ? product.price : '' %>"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">브랜드</label>
+          <input
+            class="form-control"
+            type="text"
+            name="brand"
+            value="<%= product && product.brand ? product.brand : '' %>"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- 이미지파일: 버튼 바로 위 1열 전체 -->
+    <div class="mb-3">
+      <label class="form-label">이미지파일</label>
+      <% if (product && product.image) { %>
+      <div style="margin-bottom: 8px">
+        <img
+          src="/images/<%= product.image %>"
+          alt="이미지 미리보기"
+          style="width: 100px; height: auto"
+        />
+        <div style="font-size: 12px; color: gray">
+          현재 파일: <%= product.image %>
+        </div>
+      </div>
+      <% } %>
+      <input
+        class="form-control"
+        type="file"
+        name="image"
+        style="width: 300px"
+      />
+    </div>
+
+    <button class="btn btn-outline-primary btn-sm" type="submit">
+      <%= product && product.prod_id ? '수정' : '입력' %>
+    </button>
+    <a href="/product/view">
+      <button class="btn btn-outline-primary btn-sm" type="button">
+        제품목록 돌아가기
+      </button>
+    </a>
+  </form>
+</div>

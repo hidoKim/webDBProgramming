@@ -1,0 +1,83 @@
+<!-- 202233207 김도연 -->
+<!-- boardtypeCU.ejs -->
+<div class="container">
+  <h2><%= mode === 'update' ? '게시판 수정' : '게시판 생성' %></h2>
+  <form
+    action="<%= mode === 'update' ? '/board/type/update_process' : '/board/type/create_process' %>"
+    method="post"
+    autocomplete="off"
+  >
+    <% if (mode === 'update') { %>
+    <input type="hidden" name="type_id" value="<%= boardtype.type_id %>" />
+    <% } %>
+    <div class="mb-3">
+      <label class="form-label" for="id">제목</label>
+      <input
+        class="form-control"
+        type="text"
+        name="title"
+        value="<%= boardtype && boardtype.title ? boardtype.title : '' %>"
+        style="width: 300px"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label class="form-label" for="id">설명</label>
+      <input
+        class="form-control"
+        type="text"
+        name="description"
+        value="<%= boardtype && boardtype.description ? boardtype.description : '' %>"
+        style="width: 300px"
+      />
+    </div>
+    <div class="mb-3">
+      <label class="form-label" for="id">페이지당 보여지는 글 수 </label>
+      <input
+        class="form-control"
+        type="text"
+        name="numPerPage"
+        value="<%= boardtype && boardtype.numPerPage ? boardtype.numPerPage : '' %>"
+        style="width: 300px"
+      />
+    </div>
+
+    <label class="form-label">일반 사용자 쓰기 가능 여부 </label>
+    <div class="mb-3">
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="write_YN"
+        id="write_YN1" value="Y" <%= boardtype && boardtype.write_YN === "Y" ?
+        "checked" : "" %> />
+        <label class="form-check-label" for="write_YN1"> Yes </label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="write_YN"
+        id="write_YN2" value="N" <%= !boardtype || boardtype.write_YN === "N" ?
+        "checked" : "" %> />
+        <label class="form-check-label" for="write_YN2"> No </label>
+      </div>
+    </div>
+
+    <label class="form-label" for="id">댓글 가능 여부</label>
+    <div class="mb-3">
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="re_YN" id="re_YN1"
+        value="Y" <%= boardtype && boardtype.re_YN === "Y" ? "checked" : "" %>
+        />
+        <label class="form-check-label" for="re_YN1"> Yes </label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="re_YN" id="re_YN2"
+        value="N" <%= !boardtype || boardtype.re_YN === "N" ? "checked" : "" %>
+        />
+        <label class="form-check-label" for="re_YN2"> No </label>
+      </div>
+    </div>
+    <button class="btn btn-outline-primary btn-sm" type="submit">
+      <%= mode === 'update' ? '수정' : '생성' %>
+    </button>
+    <a href="/board/type/view">
+      <button class="btn btn-outline-primary btn-sm" type="button">목록</button>
+    </a>
+  </form>
+</div>

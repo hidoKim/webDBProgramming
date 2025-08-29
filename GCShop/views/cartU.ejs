@@ -1,0 +1,32 @@
+<!-- 202233207 김도연 -->
+<!-- cartU.ejs -->
+<div class="container">
+  <h3 style="margin-bottom: 30px;">cart 테이블 수정</h3>
+  <form action="/update_process" method="post">
+    <input type="hidden" name="cart_id" value="<%= cart.cart_id %>">
+    <div class="mb-3">
+      <label class="form-label">고객</label>
+      <select class="form-select" name="loginid" style="width: 300px">
+        <% customers.forEach(function(person) { %>
+          <option value="<%= person.loginid %>" <%= person.loginid === cart.loginid ? 'selected' : '' %>><%= person.name %></option>
+        <% }); %>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">상품</label>
+      <select class="form-select" name="prod_id" style="width: 300px">
+        <% products.forEach(function(prod) { %>
+          <option value="<%= prod.prod_id %>" <%= prod.prod_id === cart.prod_id ? 'selected' : '' %>><%= prod.name %></option>
+        <% }); %>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">날짜</label>
+      <input class="form-control" type="text" value="<%= cart.date %>" style="width: 300px" disabled>
+    </div>
+    <button class="btn btn-outline-primary btn-sm" type="submit">수정</button>
+    <a href="/cartview">
+      <button class="btn btn-outline-primary btn-sm" type="button">카트 목록 돌아가기</button>
+    </a>
+  </form>
+</div>

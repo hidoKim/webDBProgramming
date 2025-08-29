@@ -1,0 +1,99 @@
+<!-- 202233207 김도연 -->
+<!-- codeCU.ejs -->
+<div class="container">
+  <h2><%= code && code.main_id ? '코드 수정' : '코드 입력' %></h2>
+  <form
+    action="<%= code && code.main_id ? '/code/update_process' : '/code/create_process' %>"
+    method="post"
+  >
+    <% if(code && code.main_id) { %>
+    <input type="hidden" name="main_id" value="<%= code.main_id %>" />
+    <input type="hidden" name="sub_id" value="<%= code.sub_id %>" />
+    <input type="hidden" name="start" value="<%= code.start %>" />
+    <% } %> <% if(!(code && code.main_id)) { %>
+    <!-- 코드 추가(create)일 때만 대분류/소분류 입력란 보임 -->
+    <div class="mb-3">
+      <label class="form-label">대분류</label>
+      <input
+        class="form-control"
+        type="text"
+        name="main_id"
+        value=""
+        style="width: 300px"
+      />
+    </div>
+    <div class="mb-3">
+      <label class="form-label">소분류</label>
+      <input
+        class="form-control"
+        type="text"
+        name="sub_id"
+        value=""
+        style="width: 300px"
+      />
+    </div>
+    <% } %>
+
+    <div class="mb-3">
+      <label class="form-label">대분류명</label>
+      <input
+        class="form-control"
+        type="text"
+        name="main_name"
+        value="<%= code && code.main_name ? code.main_name : '' %>"
+        style="width: 300px"
+      />
+    </div>
+    <div class="mb-3">
+      <label class="form-label">소분류명</label>
+      <input
+        class="form-control"
+        type="text"
+        name="sub_name"
+        value="<%= code && code.sub_name ? code.sub_name : '' %>"
+        style="width: 300px"
+      />
+    </div>
+    <% if(!(code && code.main_id)) { %>
+    <div class="mb-3">
+      <label class="form-label">시작일</label>
+      <input
+        class="form-control"
+        type="text"
+        name="start"
+        value=""
+        style="width: 300px"
+      />
+    </div>
+    <% } else { %>
+    <div class="mb-3">
+      <label class="form-label">시작일</label>
+      <input
+        class="form-control"
+        type="text"
+        value="<%= code.start %>"
+        style="width: 300px"
+        disabled
+      />
+    </div>
+    <% } %>
+    <div class="mb-3">
+      <label class="form-label">종료일</label>
+      <input
+        class="form-control"
+        type="text"
+        name="end"
+        value="<%= code && code.end ? code.end : '' %>"
+        style="width: 300px"
+      />
+    </div>
+    <button class="btn btn-outline-primary btn-sm" type="submit">
+      <%= code && code.main_id ? '수정' : '입력' %>
+    </button>
+    <a href="/code/view">
+      <button class="btn btn-outline-primary btn-sm" type="button">
+        코드 목록 돌아가기
+      </button>
+    </a>
+  </form>
+</div>

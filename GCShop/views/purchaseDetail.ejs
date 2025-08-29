@@ -1,0 +1,62 @@
+<!-- 202233207 김도연
+purchaseDetail.ejs -->
+<% if (pDetail && pDetail.length > 0) { const prod = pDetail[0]; %>
+<table class="table table-bordered">
+  <tr>
+    <td rowspan="6">
+      <% if (prod.image) { %>
+      <img
+        src="/images/<%= prod.image %>"
+        style="width: 300px; height: 300px"
+      />
+      <% } else { %>
+      <span style="color: gray">이미지 없음</span>
+      <% } %>
+    </td>
+    <td><%= prod.name %></td>
+  </tr>
+  <tr>
+    <td>
+      가격 : <%= prod.price ? prod.price.toLocaleString('ko-KR') : '' %> 원
+    </td>
+  </tr>
+  <tr>
+    <td>브랜드 : <%= prod.brand %></td>
+  </tr>
+  <tr>
+    <td>
+      <form
+        action="/purchase/purchase_process"
+        method="post"
+        style="display: inline"
+      >
+        수량:
+        <input type="number" name="qty" min="1" value="1" style="width: 60px" />
+        <input type="hidden" value="<%= prod.prod_id %>" name="prod_id" />
+        <input type="hidden" value="<%= prod.price %>" name="price" />
+        <input type="hidden" value="<%= prod.brand %>" name="brand" />
+        <input type="hidden" value="<%= prod.image %>" name="image" />
+        <button class="btn btn-outline-primary btn-sm" type="submit">
+          결재
+        </button>
+      </form>
+      <form
+        action="/purchase/cart_process"
+        method="post"
+        style="display: inline"
+      >
+        <input type="hidden" value="<%= prod.prod_id %>" name="prod_id" />
+        <button class="btn btn-outline-primary btn-sm" type="submit">
+          장바구니
+        </button>
+      </form>
+    </td>
+  </tr>
+</table>
+<% } else { %>
+<table class="table table-bordered">
+  <tr>
+    <td colspan="2">구매 정보를 찾을 수 없습니다.</td>
+  </tr>
+</table>
+<% } %>

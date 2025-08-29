@@ -1,0 +1,75 @@
+<!-- 202233207 김도연 -->
+<!-- person.ejs -->
+<table
+  class="table table-bordered border-primary table-hover"
+  style="text-align: center"
+>
+  <thead class="table-primary">
+    <tr>
+      <th>ID</th>
+      <th>PW</th>
+      <th>이름</th>
+      <th>성별</th>
+      <th>주소</th>
+      <th>전화번호</th>
+      <th>생일</th>
+      <th>클래스</th>
+      <% if (!hideActions) { %>
+      <th colspan="2">메뉴</th>
+      <% } %>
+    </tr>
+  </thead>
+  <tbody>
+    <% if (persons && persons.length > 0) { %> <%
+    persons.forEach(function(person) { %>
+    <tr>
+      <td><%= person.loginid %></td>
+      <td><%= person.password %></td>
+      <td><%= person.name %></td>
+      <td>
+        <% if (person.mf === "m") { %>남자<% } else if (person.mf === "f") {
+        %>여자<% } else { %>-<% } %>
+      </td>
+      <td><%= person.address %></td>
+      <td><%= person.tel %></td>
+      <td><%= person.birth %></td>
+      <td>
+        <% let clsKor = ""; if (person.class === "CST") clsKor = "고객"; else if
+        (person.class === "CEO") clsKor = "경영자"; else if (person.class ===
+        "MNG") clsKor = "관리자"; else clsKor = person.class; %> <%=
+        person.class %>(<%= clsKor %>)
+      </td>
+      <% if (!hideActions) { %>
+      <td>
+        <a
+          href="/person/update/<%= person.loginid %>"
+          style="text-decoration: none"
+          >수정</a
+        >
+      </td>
+      <td>
+        <a
+          href="/person/delete/<%= person.loginid %>"
+          style="text-decoration: none"
+          onclick="return confirm('정말로 삭제하시겠습니까?')"
+          >삭제</a
+        >
+      </td>
+      <% } %>
+    </tr>
+    <% }); %> <% } else { %>
+    <tr>
+      <td colspan="<%= hideActions ? 8 : 10 %>">
+        자료가 없으니 고객 추가 버튼으로 코드를 추가해 주십시오.
+      </td>
+    </tr>
+    <% } %>
+  </tbody>
+</table>
+<% if (!hideActions) { %>
+<a href="/person/create">
+  <button class="btn btn-outline-secondary btn-sm" type="button">
+    고객 추가
+  </button>
+</a>
+<% } %>
